@@ -1,7 +1,7 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 ThisBuild / organization      := "com.perikov"
 ThisBuild / scalaVersion      := "3.3.1"
-ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / publishTo         := sonatypePublishToBundle.value
 ThisBuild / scalacOptions ++= Seq(
   "-deprecation",
   "-explaintypes",
@@ -49,15 +49,18 @@ lazy val api =
   project
     .in(file("src"))
     .enablePlugins(SbtOsgi)
-    .settings(Compile / scalaSource := baseDirectory.value)
     .settings(
-      name := "Typelevel Utils",
+      Compile / scalaSource := baseDirectory.value,
+      Compile / doc / scalacOptions ++= Seq("-siteroot", "docs")
+    )
+    .settings(
+      name              := "Typelevel Utils",
       publishMavenStyle := true,
       // artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
       //   s"${organization.value}.${module.name}_${sv.binary}-${module.revision}.${artifact.extension}"
       // },
-      moduleName := "typelevel",
-      description := "Typelevel utilities for Scala 3"
+      moduleName        := "typelevel",
+      description       := "Typelevel utilities for Scala 3"
     )
     .settings(
       OsgiKeys.exportPackage      := Seq("com.perikov.typelevel;version=${Bundle-Version}"),
@@ -68,10 +71,10 @@ lazy val api =
       OsgiKeys.privatePackage     := Seq.empty,
       OsgiKeys.bundleSymbolicName := "com.perikov.typelevel",
       OsgiKeys.additionalHeaders  := Map(
-        "Bundle-Vendor"        -> "com.perikov",
-        "Bundle-Description"   -> "Typelevel utilities for Scala 3",
-        "Bundle-DocURL"        -> "https://github.com/p-pavel/scala-typelevel-utils",
-        "Require-Capability"   -> "osgi.ee;filter:=\"(&(osgi.ee=JavaSE)(version=8.0))\""
+        "Bundle-Vendor"      -> "com.perikov",
+        "Bundle-Description" -> "Typelevel utilities for Scala 3",
+        "Bundle-DocURL"      -> "https://github.com/p-pavel/scala-typelevel-utils",
+        "Require-Capability" -> "osgi.ee;filter:=\"(&(osgi.ee=JavaSE)(version=8.0))\""
       ),
       OsgiKeys.bundleVersion      := version.value
     )
@@ -81,4 +84,10 @@ lazy val tests =
     .in(file("tests"))
     .dependsOn(api)
     .settings(Compile / scalaSource := baseDirectory.value)
-lazy val buid  = project.in(file(".")).aggregate(api, tests)
+
+lazy val build =
+  project
+    .in(file("."))
+    .dependsOn(api)
+    .settings(
+    )
