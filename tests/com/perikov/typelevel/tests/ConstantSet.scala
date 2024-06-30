@@ -32,8 +32,8 @@
 package com.perikov.typelevel.tests
 
 class Tests:
-  import com.perikov.typelevel.*
-  import compiletime.testing.typeChecks
+  import com.perikov.typelevel.{ConstantSet,*}
+  import scala.compiletime.testing.typeChecks
 
   val validSet: ConstantSet[(1, 2, 3, 4)]   = constantSet[(1, 2, 3, 4)]
   val validSet2: ConstantSet[("a", 3.141d)] = constantSet[("a", 3.141)]

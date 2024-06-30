@@ -30,6 +30,7 @@
  */
 
 package com.perikov.typelevel
+import scala.compiletime.*
 
 /** Proof certificate type, guarantees that `T` is a constant tuple with unique elements
   * @example
@@ -104,7 +105,6 @@ private object ConstantSet
 
 /** Work around the compiler bug when `transparent inline def`s leak `opaque type` information */
 private type CS[A <: Tuple] = com.perikov.typelevel.ConstantSet[A]
-import compiletime.*
 import scala.quoted.*
 
 private def constant(using q: Quotes)(r: q.reflect.TypeRepr): q.reflect.Constant =

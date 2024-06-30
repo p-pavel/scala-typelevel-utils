@@ -54,11 +54,9 @@ lazy val api =
       Compile / doc / scalacOptions ++= Seq("-siteroot", "docs")
     )
     .settings(
+      version           := "1.1.0-SNAPSHOT",
       name              := "Typelevel Utils",
       publishMavenStyle := true,
-      // artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
-      //   s"${organization.value}.${module.name}_${sv.binary}-${module.revision}.${artifact.extension}"
-      // },
       moduleName        := "typelevel",
       description       := "Typelevel utilities for Scala 3"
     )
@@ -68,7 +66,7 @@ lazy val api =
         "scala.quoted.*;version=\"(3.3.1,4]\"",
         "*"
       ),
-      OsgiKeys.privatePackage     := Seq.empty,
+      OsgiKeys.privatePackage     := Seq("com.perikov.typelevel.compiletime"),
       OsgiKeys.bundleSymbolicName := "com.perikov.typelevel",
       OsgiKeys.additionalHeaders  := Map(
         "Bundle-Vendor"      -> "com.perikov",
@@ -83,7 +81,8 @@ lazy val tests =
   project
     .in(file("tests"))
     .dependsOn(api)
-    .settings(Compile / scalaSource := baseDirectory.value)
+    .settings(
+      Compile / scalaSource := baseDirectory.value)
 
 lazy val build =
   project
