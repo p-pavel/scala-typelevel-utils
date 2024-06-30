@@ -2,7 +2,6 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.perikov/typelevel_3) [![javadoc](https://javadoc.io/badge2/com.perikov/typelevel_3/javadoc.svg)](https://javadoc.io/doc/com.perikov/typelevel_3)
 
-## Motivation for type level programming
+Some utilities for type-level programming in Scala 3.
 
-
-## Phantom types
+For motivational text see https://github.com/p-pavel/scala-typelevel-motivational
