@@ -16,7 +16,7 @@ ThisBuild / scalacOptions ++= Seq(
   "-java-output-version",
   "8"
 )
-ThisBuild / version           := "1.1.0"
+ThisBuild / version           := "1.1.1"
 ThisBuild / developers        := List(
   Developer(
     "p-pavel",
