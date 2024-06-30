@@ -16,7 +16,7 @@ ThisBuild / scalacOptions ++= Seq(
   "-java-output-version",
   "8"
 )
-ThisBuild / version           := "1.0.0"
+ThisBuild / version           := "1.1.0"
 ThisBuild / developers        := List(
   Developer(
     "p-pavel",
@@ -54,7 +54,6 @@ lazy val api =
       Compile / doc / scalacOptions ++= Seq("-siteroot", "docs")
     )
     .settings(
-      version           := "1.1.0-SNAPSHOT",
       name              := "Typelevel Utils",
       publishMavenStyle := true,
       moduleName        := "typelevel",
