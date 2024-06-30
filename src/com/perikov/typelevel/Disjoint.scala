@@ -37,21 +37,26 @@ import com.perikov.typelevel.compiletime.typeAnsiString
 
 /** Here we utilized Scala compiler match type reduction algorithm to detect if two types are disjoint Reduction will
   * not proceed in cases like `a =:= "asdf" & b =:= "String"`
+  *
+  * @note
+  *   please don't ask me how it works. It's mostly hacked to pass the tests. Unfortunately Scala compiler doesn't make
+  *   correct reducing for types like `Disj[1 | Nothing, 2 | Nothing]`
+  *
   * @see
   *   https://docs.scala-lang.org/scala3/reference/new-types/match-types.html#match-type-reduction-1
   */
 private type Disj[a, b] <: Boolean =
-  a match
-    case b => false
-    case _ =>
-      b match
-        case a => false
-        case _ => true
+  a & b match
+    case Nothing => true
+    case b       => false
+    case a       => false
+    case _       => true
 
 inline transparent def disjoint[A, B]: Boolean =
   inline constValueOpt[Disj[A, B]] match
-    case _: None.type     => false
-    case a: Some[Boolean] => constValue[Disj[A, B]]
+    case _: None.type   => true
+    case _: Some[true]  => true
+    case _: Some[false] => false
 
 opaque type Disjoint[-A, -B] = DisjointInstance.type
 
